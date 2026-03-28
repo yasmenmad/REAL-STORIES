@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>They Really Lived This</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0a0a0b;--gold:#b8860b;--gold2:#d4a017;--dim:#6b6259;--white:#faf8f4;--red:#8b1a1a}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:'Archivo',sans-serif;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.5}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9000}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 40px;background:radial-gradient(ellipse 120% 80% at 50% -10%,rgba(184,134,11,.16) 0%,transparent 58%),radial-gradient(ellipse 60% 50% at 90% 90%,rgba(139,26,26,.10) 0%,transparent 55%),var(--ink)}
+.hero-top-line{position:absolute;top:40px;left:50%;transform:translateX(-50%);width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--gold));animation:fadeIn .8s .3s both}
+.hero-label{font-size:10px;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:40px;animation:up .7s .5s both}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(58px,10.5vw,128px);line-height:.88;letter-spacing:-.02em;text-align:center;animation:up .9s .6s both}
+h1 .l1{display:block;color:var(--white)}
+h1 .l2{display:block;font-style:italic;font-weight:600;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 50%,#e8c060 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-p{font-weight:300;font-size:15px;color:var(--dim);margin:36px auto 0;max-width:420px;line-height:1.9;text-align:center;letter-spacing:.02em;animation:up .7s .9s both}
+.hero-ornament{display:flex;align-items:center;gap:20px;margin-top:48px;animation:up .7s 1.1s both;width:280px}
+.orn-line{flex:1;height:1px}.orn-line.l{background:linear-gradient(90deg,transparent,var(--gold)44)}.orn-line.r{background:linear-gradient(90deg,var(--gold)44,transparent)}
+.orn-dot{width:5px;height:5px;background:var(--gold);border-radius:50%}
+.stats{display:flex;margin-top:40px;animation:up .7s 1.25s both}
+.stat{padding:18px 34px;text-align:center;border:1px solid rgba(184,134,11,.15);border-right:none;background:rgba(184,134,11,.04)}
+.stat:last-child{border-right:1px solid rgba(184,134,11,.15)}
+.stat-n{font-family:'Archivo Black',sans-serif;font-size:30px;color:var(--gold);line-height:1}
+.stat-l{font-size:9px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-top:4px}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:up .6s 1.5s both}
+.scroll-hint span{font-size:8px;letter-spacing:.45em;color:var(--dim);text-transform:uppercase}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2.5s ease-in-out infinite}
+
+/* API BANNER */
+#api-banner{background:rgba(184,134,11,.06);border-bottom:1px solid rgba(184,134,11,.18);padding:11px 24px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--dim);transition:background .4s}
+#api-banner strong{color:var(--gold);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}
+#api-banner input{background:rgba(0,0,0,.5);border:1px solid rgba(184,134,11,.22);color:var(--white);padding:6px 12px;font-size:11px;font-family:'Archivo',sans-serif;width:200px;outline:none;transition:border-color .2s}
+#api-banner input:focus{border-color:rgba(184,134,11,.6)}
+#api-banner button{background:rgba(184,134,11,.18);border:1px solid rgba(184,134,11,.4);color:var(--gold);padding:6px 16px;font-size:9px;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;font-family:'Archivo',sans-serif;transition:background .2s}
+#api-banner button:hover{background:rgba(184,134,11,.32)}
+#api-banner a{color:var(--gold);text-decoration:none;opacity:.75;font-size:10px}
+.banner-status{font-size:10px;padding:3px 10px;border-radius:2px;transition:all .3s}
+.banner-status.ok{color:#4caf50;border:1px solid rgba(76,175,80,.3)}
+.banner-status.err{color:#e57373;border:1px solid rgba(229,115,115,.3)}
+
+/* NAV */
+#nav{position:sticky;top:0;z-index:200;background:rgba(10,10,11,.93);backdrop-filter:blur(24px);border-bottom:1px solid rgba(184,134,11,.12)}
+.nav-in{max-width:1500px;margin:0 auto;display:flex;align-items:center;padding:0 32px;gap:0}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--gold);white-space:nowrap;padding:16px 24px 16px 0;border-right:1px solid rgba(184,134,11,.18)}
+.tabs-scroll{display:flex;overflow-x:auto;scrollbar-width:none;flex:1;margin-left:8px}
+.tabs-scroll::-webkit-scrollbar{display:none}
+.tab{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);background:none;border:none;padding:20px 16px;cursor:none;white-space:nowrap;position:relative;transition:color .25s;font-family:'Archivo',sans-serif}
+.tab::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--gold);transition:width .3s}
+.tab:hover,.tab.active{color:var(--gold2)}
+.tab:hover::after,.tab.active::after{width:65%}
+/* SEARCH in nav */
+.nav-search{display:flex;align-items:center;gap:0;margin-left:auto;padding-left:16px;border-left:1px solid rgba(184,134,11,.13)}
+#searchInput{background:rgba(255,255,255,.04);border:1px solid rgba(184,134,11,.18);border-right:none;color:var(--white);padding:7px 14px;font-size:11px;font-family:'Archivo',sans-serif;width:190px;outline:none;transition:border-color .2s,width .3s}
+#searchInput:focus{border-color:rgba(184,134,11,.5);width:240px}
+#searchInput::placeholder{color:var(--dim);font-size:10px}
+#searchBtn{background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.35);color:var(--gold);padding:7px 14px;font-size:11px;cursor:pointer;font-family:'Archivo',sans-serif;transition:background .2s;white-space:nowrap}
+#searchBtn:hover{background:rgba(184,134,11,.28)}
+.nav-count{font-size:10px;color:var(--dim);white-space:nowrap;padding-left:16px;font-family:'Archivo Black',sans-serif}
+
+/* AI SEARCH BANNER */
+#aiSearchResult{display:none;background:linear-gradient(135deg,rgba(184,134,11,.06),rgba(184,134,11,.02));border-bottom:1px solid rgba(184,134,11,.15);padding:14px 32px;max-width:100%}
+#aiSearchResult.show{display:block}
+.asr-label{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+#aiSearchText{font-size:13px;color:rgba(255,255,255,.72);line-height:1.8;max-width:900px}
+.asr-matches{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.asr-match{font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:4px 12px;border:1px solid rgba(184,134,11,.3);color:var(--gold2);cursor:pointer;transition:background .2s}
+.asr-match:hover{background:rgba(184,134,11,.12)}
+
+/* MOOD PICKER */
+#moodBar{background:rgba(184,134,11,.04);border-bottom:1px solid rgba(184,134,11,.1);padding:10px 32px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;overflow:hidden;max-height:0;transition:max-height .4s ease,padding .4s ease;padding-top:0;padding-bottom:0}
+#moodBar.open{max-height:120px;padding:10px 32px}
+.mood-label{font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.mood-btn{font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(184,134,11,.22);color:var(--dim);background:none;cursor:pointer;font-family:'Archivo',sans-serif;transition:all .2s;white-space:nowrap}
+.mood-btn:hover,.mood-btn.active{border-color:var(--gold2);color:var(--gold2);background:rgba(184,134,11,.1)}
+
+/* SECTION */
+.wrap{max-width:1500px;margin:0 auto;padding:60px 32px 90px}
+.sec-head{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:24px;margin-bottom:56px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.055)}
+.sec-idx{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:300;color:rgba(184,134,11,.07);line-height:1;user-select:none}
+.sec-m{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(26px,4vw,50px);line-height:1;letter-spacing:-.01em}
+.sec-i{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(22px,3.5vw,44px);color:var(--gold);line-height:1}
+.sec-count{font-size:9px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;text-align:right}
+/* mood result title */
+.mood-result-label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:none}
+.mood-result-label.show{display:block}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px}
+
+/* CARD */
+.card{position:relative;overflow:hidden;aspect-ratio:2/3;cursor:none;background:var(--ink)}
+.card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s,opacity .5s;filter:brightness(.88) saturate(.9);opacity:0}
+.card-img.loaded{opacity:1}
+.card:hover .card-img{transform:scale(1.09);filter:brightness(1) saturate(1.05)}
+.card-fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .5s}
+.card-fb.hidden{opacity:0;pointer-events:none}
+.card-fb-letter{font-family:'Cormorant Garamond',serif;font-size:76px;font-weight:700;font-style:italic;color:rgba(255,255,255,.11);line-height:1}
+.card-fb-name{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.16);text-align:center;padding:0 14px}
+.card-strip{position:absolute;bottom:0;left:0;right:0;padding:55px 13px 12px;background:linear-gradient(to top,rgba(0,0,0,.96) 0%,rgba(0,0,0,.55) 55%,transparent 100%);transition:opacity .3s}
+.card:hover .card-strip{opacity:0}
+.card-strip-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:13.5px;color:var(--white);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-strip-year{font-size:9.5px;color:var(--gold);margin-top:2px}
+.card-hover{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.97) 0%,rgba(0,0,0,.72) 38%,rgba(0,0,0,.15) 100%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 15px}
+.card:hover .card-hover{opacity:1}
+.card-htitle{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;line-height:1.1;color:var(--white);margin-bottom:3px}
+.card-hyear{font-size:9.5px;color:var(--gold);margin-bottom:9px;letter-spacing:.1em}
+.card-hdesc{font-size:10px;line-height:1.65;color:rgba(255,255,255,.62);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.card-hcta{display:inline-block;margin-top:11px;font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.8}
+.card-badge{position:absolute;top:10px;left:10px;font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor;font-family:'Archivo',sans-serif}
+.card-rating{position:absolute;top:10px;right:10px;font-family:'Archivo Black',sans-serif;font-size:10.5px;color:var(--gold2);background:rgba(0,0,0,.68);padding:3px 8px;border:1px solid rgba(184,134,11,.28)}
+.card-ai-badge{position:absolute;bottom:52px;right:10px;font-size:8px;letter-spacing:.1em;color:var(--gold);background:rgba(0,0,0,.6);border:1px solid rgba(184,134,11,.25);padding:2px 7px;opacity:0;transition:opacity .3s}
+.card:hover .card-ai-badge{opacity:1}
+
+/* MODAL */
+#modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.92);backdrop-filter:blur(22px);align-items:flex-start;justify-content:center;padding:30px 20px;overflow-y:auto}
+#modal-bg.open{display:flex}
+#modal{background:var(--ink);border:1px solid rgba(184,134,11,.2);max-width:780px;width:100%;animation:pop .4s cubic-bezier(.16,1,.3,1);position:relative;margin:auto}
+.modal-top{display:flex;min-height:360px}
+.modal-poster-col{width:240px;flex-shrink:0;background:#000;position:relative;overflow:hidden}
+.modal-poster{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;min-height:360px}
+.modal-poster-fb{width:100%;min-height:360px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:700;font-style:italic;color:rgba(255,255,255,.09)}
+.modal-info{flex:1;padding:26px 26px 22px;display:flex;flex-direction:column;border-left:1px solid rgba(184,134,11,.1);overflow:hidden}
+.modal-eye{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.modal-type{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.modal-cat{font-size:8px;letter-spacing:.3em;text-transform:uppercase}
+.modal-sep{flex:1;height:1px;background:rgba(184,134,11,.18)}
+.modal-score{font-family:'Archivo Black',sans-serif;font-size:12px;color:var(--gold2)}
+.modal-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(20px,2.8vw,30px);line-height:1.05;color:var(--white);margin-bottom:4px}
+.modal-year{font-size:11px;color:var(--gold);margin-bottom:14px;letter-spacing:.08em}
+.modal-desc{font-size:13px;line-height:1.9;color:rgba(255,255,255,.62);font-weight:300;flex:1}
+/* AI deeper desc */
+.modal-ai-desc{display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(184,134,11,.1)}
+.modal-ai-desc.show{display:block}
+.modal-ai-desc-text{font-size:12.5px;line-height:1.85;color:rgba(255,255,255,.55);font-weight:300;font-style:italic}
+.modal-ai-desc-label{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:.7}
+.btn-deeper{margin-top:14px;background:none;border:1px solid rgba(184,134,11,.22);color:var(--dim);padding:6px 14px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;font-family:'Archivo',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-deeper:hover{border-color:var(--gold);color:var(--gold)}
+.btn-deeper .spin{display:none;width:10px;height:10px;border:1.5px solid var(--gold);border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite}
+.btn-deeper.loading .spin{display:inline-block}
+
+#modal-close{position:absolute;top:12px;right:12px;width:30px;height:30px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.15);color:var(--white);font-size:12px;cursor:none;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:10}
+#modal-close:hover{background:rgba(184,134,11,.28)}
+
+/* SIMILAR TITLES */
+.modal-similar{padding:16px 24px;border-top:1px solid rgba(184,134,11,.1)}
+.modal-similar-label{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.modal-similar-label::after{content:'';flex:1;height:1px;background:rgba(184,134,11,.15)}
+.similar-cards{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.similar-cards::-webkit-scrollbar{display:none}
+.sim-card{flex-shrink:0;width:90px;cursor:pointer;transition:opacity .2s}
+.sim-card:hover{opacity:.75}
+.sim-img{width:90px;height:135px;object-fit:cover;display:block;background:#111}
+.sim-fb{width:90px;height:135px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;font-style:italic;color:rgba(255,255,255,.1)}
+.sim-title{font-size:9px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.3;text-align:center;letter-spacing:.04em}
+.similar-loading{font-size:11px;color:var(--dim);font-style:italic;padding:8px 0}
+
+/* AI CHAT */
+.modal-chat{border-top:1px solid rgba(184,134,11,.12);padding:18px 24px 22px}
+.chat-label{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.chat-label::after{content:'';flex:1;height:1px;background:rgba(184,134,11,.15)}
+.chat-msgs{max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;scrollbar-width:thin;scrollbar-color:rgba(184,134,11,.2) transparent}
+.chat-msgs:empty{display:none}
+.chat-msg{font-size:12.5px;line-height:1.7;padding:10px 14px}
+.chat-msg.user{background:rgba(184,134,11,.07);border:1px solid rgba(184,134,11,.18);color:rgba(255,255,255,.85);align-self:flex-end;max-width:85%;font-style:italic}
+.chat-msg.ai{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.75);align-self:flex-start;max-width:96%}
+.chat-msg.loading{color:var(--dim);font-style:italic;border:none;background:none;padding-left:4px;display:flex;align-items:center;gap:8px}
+.chat-msg.loading::before{content:'';width:10px;height:10px;border:1.5px solid var(--dim);border-top-color:var(--gold);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+/* quick prompts */
+.quick-prompts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.qp{font-size:9px;letter-spacing:.1em;padding:4px 10px;border:1px solid rgba(184,134,11,.18);color:var(--dim);background:none;cursor:pointer;font-family:'Archivo',sans-serif;transition:all .2s;text-align:left}
+.qp:hover{border-color:rgba(184,134,11,.4);color:var(--gold)}
+.chat-input-row{display:flex;gap:8px}
+.chat-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(184,134,11,.22);color:var(--white);padding:9px 14px;font-size:12px;font-family:'Archivo',sans-serif;outline:none;transition:border-color .2s}
+.chat-input:focus{border-color:rgba(184,134,11,.55)}
+.chat-input::placeholder{color:var(--dim);font-size:11px}
+.chat-send{background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.35);color:var(--gold);padding:9px 18px;font-size:9px;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;font-family:'Archivo',sans-serif;transition:background .2s;white-space:nowrap}
+.chat-send:hover:not(:disabled){background:rgba(184,134,11,.3)}
+.chat-send:disabled{opacity:.35;cursor:not-allowed}
+
+/* FOOTER */
+footer{text-align:center;padding:56px 24px;border-top:1px solid rgba(255,255,255,.05)}
+footer p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--dim);font-weight:300}
+footer span{color:var(--gold)}
+
+/* ANIMATIONS */
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes pop{from{opacity:0;transform:scale(.94) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:640px){
+  .grid{grid-template-columns:repeat(auto-fill,minmax(148px,1fr))}
+  .stats{flex-wrap:wrap}.sec-head{grid-template-columns:1fr;gap:6px}.sec-idx{display:none}
+  .modal-top{flex-direction:column}.modal-poster-col{width:100%;height:260px}
+  .modal-poster{min-height:0;height:260px}.modal-poster-fb{min-height:0;height:260px}
+  .modal-info{border-left:none;border-top:1px solid rgba(184,134,11,.1)}
+  #searchInput{width:140px}#searchInput:focus{width:160px}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-top-line"></div>
+  <p class="hero-label">Real Lives &nbsp;·&nbsp; Real Stories &nbsp;·&nbsp; Real Legends</p>
+  <h1><span class="l1">They Really</span><span class="l2">Lived This</span></h1>
+  <p class="hero-p">The most extraordinary films and series ever made — all based on real people who changed history, broke rules, and refused to be forgotten.</p>
+  <div class="hero-ornament"><div class="orn-line l"></div><div class="orn-dot"></div><div class="orn-line r"></div></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">85</div><div class="stat-l">Titles</div></div>
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">Categories</div></div>
+    <div class="stat"><div class="stat-n">80+</div><div class="stat-l">Years of Cinema</div></div>
+    <div class="stat"><div class="stat-n">70+</div><div class="stat-l">Oscar Wins</div></div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- API BANNER -->
+<div id="api-banner">
+  <strong>⚡ Live APIs</strong>
+  <span style="font-size:11px;color:rgba(255,255,255,.45)">TMDB Posters</span>
+  <span id="bannerStatus" class="banner-status ok">✓ Connected</span>
+  <span style="font-size:11px;color:rgba(255,255,255,.45)">·</span>
+  <span style="font-size:11px;color:rgba(255,255,255,.45)">Groq AI</span>
+  <span class="banner-status ok">✓ Active</span>
+  <span id="tmdbIn" style="display:none"></span>
+  <span id="groqIn" style="display:none"></span>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <div class="nav-brand">True Stories</div>
+    <div class="tabs-scroll" id="tabs"></div>
+    <div class="nav-search">
+      <input id="searchInput" placeholder="🔍 AI search… e.g. fraud, survival, queen"/>
+      <button id="searchBtn" onclick="doSearch()">Search</button>
+    </div>
+    <div class="nav-count" id="navCount"></div>
+  </div>
+</nav>
+
+<!-- MOOD BAR -->
+<div id="moodBar" class="open">
+  <span class="mood-label">I'm in the mood for…</span>
+  <button class="mood-btn" onclick="doMood(this,'something shocking and unbelievable')">😱 Unbelievable</button>
+  <button class="mood-btn" onclick="doMood(this,'a powerful music biopic')">🎵 Music Legends</button>
+  <button class="mood-btn" onclick="doMood(this,'a gripping crime story')">🔪 Dark Crime</button>
+  <button class="mood-btn" onclick="doMood(this,'an inspiring science or genius story')">🧠 Genius Minds</button>
+  <button class="mood-btn" onclick="doMood(this,'an epic war story')">⚔ War & Survival</button>
+  <button class="mood-btn" onclick="doMood(this,'royal drama and palace intrigue')">👑 Royal Drama</button>
+  <button class="mood-btn" onclick="doMood(this,'political power struggles and scandals')">⚖ Power & Politics</button>
+  <button class="mood-btn" onclick="doMood(this,'the highest rated titles over 9')">⭐ Highest Rated</button>
+  <button class="mood-btn" onclick="doMood(this,'something feel-good and triumphant')">🏆 Triumphant</button>
+</div>
+
+<!-- AI SEARCH RESULT -->
+<div id="aiSearchResult">
+  <div class="asr-label">⚡ Groq AI Search</div>
+  <div id="aiSearchText"></div>
+  <div class="asr-matches" id="asrMatches"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <div class="sec-head">
+    <div class="sec-idx" id="secIdx">00</div>
+    <div><div class="sec-m" id="secM"></div><div class="sec-i" id="secI"></div></div>
+    <div class="sec-count" id="secCount"></div>
+  </div>
+  <div class="mood-result-label" id="moodLabel"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<footer><p>"Truth is stranger — and <span>far more beautiful</span> — than any fiction."</p></footer>
+
+<!-- MODAL -->
+<div id="modal-bg">
+  <div id="modal">
+    <div class="modal-top">
+      <div class="modal-poster-col" id="mImgWrap"></div>
+      <div class="modal-info">
+        <div class="modal-eye">
+          <span class="modal-type" id="mType"></span>
+          <span class="modal-cat" id="mCat"></span>
+          <div class="modal-sep"></div>
+          <span class="modal-score" id="mScore"></span>
+        </div>
+        <div class="modal-title" id="mTitle"></div>
+        <div class="modal-year" id="mYear"></div>
+        <div class="modal-desc" id="mDesc"></div>
+        <div class="modal-ai-desc" id="mAiDesc">
+          <div class="modal-ai-desc-label">⚡ AI Deep Dive</div>
+          <div class="modal-ai-desc-text" id="mAiDescText"></div>
+        </div>
+        <button class="btn-deeper" id="btnDeeper" onclick="loadDeeper()">
+          <span class="spin"></span>
+          ⚡ AI Deep Dive
+        </button>
+      </div>
+    </div>
+
+    <!-- SIMILAR TITLES -->
+    <div class="modal-similar">
+      <div class="modal-similar-label">You might also like</div>
+      <div class="similar-cards" id="similarCards"><span class="similar-loading">Loading recommendations…</span></div>
+    </div>
+
+    <!-- AI CHAT -->
+    <div class="modal-chat">
+      <div class="chat-label">Ask AI about this title</div>
+      <div class="chat-msgs" id="chatMsgs"></div>
+      <div class="quick-prompts" id="quickPrompts"></div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" placeholder="Ask anything about this film or the real story…"/>
+        <button class="chat-send" id="chatSend" onclick="sendChat()">Ask →</button>
+      </div>
+    </div>
+
+    <button id="modal-close">✕</button>
+  </div>
+</div>
+
+<script>
+// ── CURSOR ────────────────────────────────────────────────────────────────
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+function cursorHover(els){els.forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='52px';ring.style.height='52px';ring.style.opacity='1'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='.5'});
+});}
+document.querySelectorAll('button,.tab').forEach(el=>cursorHover([el]));
+
+// ── API KEYS (HARDCODED) ──────────────────────────────────────────────────
+let TMDB_KEY='f45fbdd7b24f1341eb132d1d53f5bf98';
+let GROQ_KEY='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';
+
+function saveKeys(){/* keys are hardcoded */}
+
+// Show mood bar always (keys are always set)
+function updateMoodBar(){
+  document.getElementById('moodBar').classList.add('open');
+}
+updateMoodBar();
+
+// ── TMDB ──────────────────────────────────────────────────────────────────
+let posterCache={};
+const TMDB_IMG='https://image.tmdb.org/t/p/w500';
+
+async function fetchPoster(m){
+  if(posterCache[m.id]!==undefined)return posterCache[m.id];
+  if(!TMDB_KEY){posterCache[m.id]=null;return null;}
+  try{
+    const tv=(m.type==='SERIES'||m.type==='MINI');
+    const url=`https://api.themoviedb.org/3/search/${tv?'tv':'movie'}?api_key=${TMDB_KEY}&query=${encodeURIComponent(m.title)}&language=en-US&page=1`;
+    const res=await fetch(url);if(!res.ok)throw 0;
+    const {results=[]}=await res.json();
+    const yearKey=tv?'first_air_date':'release_date';
+    const match=results.find(x=>(x[yearKey]||'').startsWith(m.year))||results[0];
+    posterCache[m.id]=match?.poster_path?TMDB_IMG+match.poster_path:null;
+  }catch{posterCache[m.id]=null;}
+  return posterCache[m.id];
+}
+
+// ── GROQ ──────────────────────────────────────────────────────────────────
+async function groq(messages,max_tokens=400,temperature=0.75){
+  if(!GROQ_KEY)throw new Error('No Groq API key');
+  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_KEY}`},
+    body:JSON.stringify({model:'llama-3.1-8b-instant',messages,max_tokens,temperature})
+  });
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${res.status}`);}
+  const d=await res.json();
+  return d.choices?.[0]?.message?.content||'';
+}
+
+// ── DATA ──────────────────────────────────────────────────────────────────
+const MOVIES=[
+  // ── SHOCKING ──
+  {id:1,  cat:"shocking",type:"FILM",  year:"2002",rating:"8.1",title:"Catch Me If You Can",        desc:"Frank Abagnale Jr. conned millions impersonating a pilot, doctor and lawyer — all before turning 21. DiCaprio at his most electric.",ac:"#8b4513"},
+  {id:2,  cat:"shocking",type:"SERIES",year:"2021",rating:"8.5",title:"The Serpent",                desc:"Charles Sobhraj — charming, multilingual, terrifying — preyed on backpackers across Southeast Asia and evaded justice for decades.",ac:"#1a4a2e"},
+  {id:3,  cat:"shocking",type:"SERIES",year:"2018",rating:"8.2",title:"Waco",                       desc:"David Koresh and the 51-day FBI standoff that ended in catastrophic fire. A portrait of faith, charisma, and power colliding.",ac:"#4a1010"},
+  {id:4,  cat:"shocking",type:"SERIES",year:"2019",rating:"8.4",title:"The Act",                    desc:"Gypsy Rose Blanchard was kept sick by her own mother for years — Munchausen by proxy ending in a crime no one saw coming.",ac:"#2a1040"},
+  {id:5,  cat:"shocking",type:"SERIES",year:"2022",rating:"7.9",title:"The Dropout",                desc:"Elizabeth Holmes dropped out of Stanford, charmed billionaires, and built a medical empire on a complete lie.",ac:"#0e3a50"},
+  {id:6,  cat:"shocking",type:"FILM",  year:"2003",rating:"7.5",title:"Monster",                    desc:"Charlize Theron won the Oscar vanishing into Aileen Wuornos — a serial killer whose life was as tragic as her crimes.",ac:"#2a1010"},
+  {id:43, cat:"shocking",type:"SERIES",year:"2017",rating:"8.7",title:"Dirty Money",                desc:"Netflix's explosive documentary series exposing corporate corruption — from Volkswagen's emissions scandal to payday loan empires.",ac:"#0a1a28"},
+  {id:44, cat:"shocking",type:"SERIES",year:"2022",rating:"8.0",title:"The Tinder Swindler",        desc:"Simon Leviev posed as a billionaire diamond mogul on Tinder, romancing women across Europe to fund his lavish lies.",ac:"#1c0a28"},
+  {id:45, cat:"shocking",type:"SERIES",year:"2023",rating:"7.8",title:"Madoff: The Monster of Wall Street",desc:"Bernie Madoff orchestrated history's largest Ponzi scheme — $65 billion stolen, thousands of lives destroyed, and decades of looking the other way.",ac:"#0a1830"},
+  {id:46, cat:"shocking",type:"SERIES",year:"2022",rating:"7.6",title:"The Puppet Master",          desc:"Robert Hendy-Freegard impersonated an MI5 agent for years, psychologically manipulating victims into funding his fake spy life.",ac:"#1a1428"},
+  {id:47, cat:"shocking",type:"FILM",  year:"2017",rating:"7.4",title:"I, Tonya",                   desc:"Margot Robbie as Tonya Harding — a gifted skater from a brutal home, destroyed by the most infamous scandal in sports history.",ac:"#081828"},
+
+  // ── MUSIC ──
+  {id:7,  cat:"music",   type:"FILM",  year:"2018",rating:"7.9",title:"Bohemian Rhapsody",          desc:"From Farrokh Bulsara in Zanzibar to Freddie Mercury at Live Aid — the heartbreaking rise of one of rock's greatest voices.",ac:"#5a2e08"},
+  {id:8,  cat:"music",   type:"FILM",  year:"2019",rating:"7.3",title:"Rocketman",                  desc:"A fantastical musical odyssey through Elton John's life — from awkward piano prodigy to one of the biggest stars on earth.",ac:"#102050"},
+  {id:9,  cat:"music",   type:"FILM",  year:"2022",rating:"7.8",title:"Elvis",                      desc:"Baz Luhrmann's fever-dream portrait of Presley and his manipulative manager — a man who changed music but lost himself.",ac:"#380808"},
+  {id:10, cat:"music",   type:"FILM",  year:"2004",rating:"7.7",title:"Ray",                        desc:"Jamie Foxx's Oscar-winning transformation into Ray Charles — genius, addiction, turbulence and the sound that defined American music.",ac:"#081808"},
+  {id:11, cat:"music",   type:"FILM",  year:"2015",rating:"7.8",title:"Straight Outta Compton",     desc:"Ice Cube, Dr. Dre and Eazy-E — three men from Compton who created N.W.A and exploded America's idea of what music could say.",ac:"#0a0a0a"},
+  {id:12, cat:"music",   type:"FILM",  year:"2024",rating:"7.8",title:"Bob Marley: One Love",       desc:"The life and legend of Bob Marley — from the hills of Jamaica to a global symbol of peace, love and resistance.",ac:"#1a3808"},
+  {id:13, cat:"music",   type:"SERIES",year:"2023",rating:"8.1",title:"Daisy Jones & The Six",      desc:"A deeply real-feeling chronicle of a 1970s rock band's rise and implosion — inspired by Fleetwood Mac.",ac:"#301020"},
+  {id:48, cat:"music",   type:"FILM",  year:"2014",rating:"8.7",title:"Whiplash",                   desc:"A young jazz drummer at an elite conservatory meets a conductor who terrorizes students into greatness — inspired by director Damien Chazelle's own brutal teacher.",ac:"#1a0808"},
+  {id:49, cat:"music",   type:"FILM",  year:"2007",rating:"7.5",title:"La Vie en Rose",             desc:"Marion Cotillard's Oscar-winning portrayal of Édith Piaf — the sparrow of Paris, who sang through poverty, addiction and loss.",ac:"#300818"},
+  {id:50, cat:"music",   type:"FILM",  year:"2023",rating:"7.1",title:"Maestro",                    desc:"Bradley Cooper's immersive portrait of Leonard Bernstein — conductor, composer, and one of the most complicated men in American music.",ac:"#08101c"},
+  {id:51, cat:"music",   type:"SERIES",year:"2022",rating:"8.3",title:"Pam & Tommy",                desc:"The true story of Pamela Anderson and Tommy Lee's stolen sex tape — and how it accidentally invented the internet economy.",ac:"#200810"},
+  {id:52, cat:"music",   type:"FILM",  year:"1988",rating:"7.5",title:"Bird",                       desc:"Clint Eastwood's haunting biopic of Charlie Parker — the jazz genius who blew the saxophone like God and destroyed himself doing it.",ac:"#0a0810"},
+
+  // ── SCIENCE ──
+  {id:14, cat:"science", type:"FILM",  year:"2023",rating:"8.3",title:"Oppenheimer",                desc:"J. Robert Oppenheimer built the bomb that ended WWII — then spent his life haunted by it. Cillian Murphy is career-defining.",ac:"#503808"},
+  {id:15, cat:"science", type:"FILM",  year:"2014",rating:"8.0",title:"The Imitation Game",         desc:"Alan Turing cracked the Nazi Enigma code and helped win WWII — then was prosecuted by the government he saved for being gay.",ac:"#082030"},
+  {id:16, cat:"science", type:"FILM",  year:"2016",rating:"7.8",title:"Hidden Figures",             desc:"Three Black women mathematicians at NASA whose calculations launched humans into orbit — erased from history for decades.",ac:"#082818"},
+  {id:17, cat:"science", type:"FILM",  year:"2001",rating:"8.2",title:"A Beautiful Mind",           desc:"John Nash — Nobel Prize-winning genius in game theory who battled paranoid schizophrenia, unsure of what was real.",ac:"#101040"},
+  {id:18, cat:"science", type:"FILM",  year:"2014",rating:"7.7",title:"The Theory of Everything",   desc:"Stephen Hawking's journey from Cambridge student to the world's most famous scientist, told through his first wife's eyes.",ac:"#081428"},
+  {id:53, cat:"science", type:"FILM",  year:"2015",rating:"8.0",title:"The Martian",                desc:"Based on Andy Weir's real-science novel — astronaut Mark Watney is stranded on Mars and must science his way to survival.",ac:"#381408"},
+  {id:54, cat:"science", type:"SERIES",year:"2019",rating:"8.6",title:"Unbelievable",               desc:"Based on a Pulitzer-winning ProPublica investigation — a teenager's rape report is dismissed, and two detectives slowly unravel the truth.",ac:"#0e1828"},
+  {id:55, cat:"science", type:"FILM",  year:"1995",rating:"7.6",title:"Apollo 13",                  desc:"An oxygen tank explosion nearly strands three astronauts in space. NASA's finest hour — engineers who refused to lose.",ac:"#101830"},
+  {id:56, cat:"science", type:"FILM",  year:"2015",rating:"7.4",title:"The Man Who Knew Infinity",  desc:"Srinivasa Ramanujan — the self-taught Indian mathematician who arrived at Cambridge with no formal training and revolutionized mathematics.",ac:"#0c1820"},
+
+  // ── CRIME ──
+  {id:19, cat:"crime",   type:"SERIES",year:"2015",rating:"8.8",title:"Narcos",                     desc:"Pablo Escobar turned Colombia into his personal kingdom, made billions in cocaine, and terrorized a continent.",ac:"#280808"},
+  {id:20, cat:"crime",   type:"FILM",  year:"1990",rating:"8.7",title:"Goodfellas",                 desc:"Henry Hill's life inside the mob — Scorsese at his most electric, detailing the glamour, violence, and collapse of organized crime.",ac:"#0a0818"},
+  {id:21, cat:"crime",   type:"FILM",  year:"1973",rating:"7.9",title:"Serpico",                    desc:"Al Pacino as Frank Serpico — the only honest cop in a corrupt NYPD who blew the whistle and paid nearly with his life.",ac:"#101808"},
+  {id:22, cat:"crime",   type:"SERIES",year:"2013",rating:"9.5",title:"Breaking Bad",               desc:"Walter White — chemistry teacher turned drug kingpin. The most chillingly real portrait of moral collapse ever filmed.",ac:"#201400"},
+  {id:23, cat:"crime",   type:"SERIES",year:"2021",rating:"8.2",title:"Inventing Anna",             desc:"Anna Delvey convinced New York's elite she was a German heiress — and nearly pulled off the ultimate con before it unraveled.",ac:"#180828"},
+  {id:24, cat:"crime",   type:"FILM",  year:"2015",rating:"7.8",title:"The Big Short",              desc:"A handful of outsiders foresaw the 2008 financial collapse and bet against the entire US mortgage market — and were right.",ac:"#081418"},
+  {id:57, cat:"crime",   type:"SERIES",year:"2022",rating:"8.1",title:"Monster: Jeffrey Dahmer Story",desc:"Ryan Murphy's unflinching portrait of Milwaukee's most notorious serial killer — the victims, the community, and a system that failed them.",ac:"#0a1008"},
+  {id:58, cat:"crime",   type:"FILM",  year:"2007",rating:"8.0",title:"American Gangster",          desc:"Frank Lucas built a heroin empire smuggling drugs inside US soldiers' coffins from Vietnam — and Denzel Washington plays every inch of him.",ac:"#180c08"},
+  {id:59, cat:"crime",   type:"SERIES",year:"2018",rating:"8.6",title:"Mindhunter",                 desc:"The true story of FBI agents who pioneered criminal profiling by interviewing America's most notorious serial killers in the 1970s.",ac:"#0c1014"},
+  {id:60, cat:"crime",   type:"FILM",  year:"1997",rating:"7.7",title:"Donnie Brasco",              desc:"FBI undercover agent Joe Pistone spent six years embedded in the New York mob — and nearly lost himself in the process.",ac:"#0a0c10"},
+  {id:61, cat:"crime",   type:"MINI",  year:"2018",rating:"8.9",title:"The Assassination of Gianni Versace",desc:"The murder of fashion icon Gianni Versace and the killer who stalked America's rich and famous for years while the FBI looked away.",ac:"#280818"},
+
+  // ── WAR ──
+  {id:25, cat:"war",     type:"MINI",  year:"2019",rating:"9.4",title:"Chernobyl",                  desc:"The 1986 Soviet nuclear disaster — the meltdown, the cover-up, and the human cost of institutional lies.",ac:"#081008"},
+  {id:26, cat:"war",     type:"FILM",  year:"2017",rating:"7.4",title:"Darkest Hour",               desc:"May 1940. Europe is falling. Churchill must decide: negotiate with Hitler or fight knowing it could mean the end of the Empire.",ac:"#181818"},
+  {id:27, cat:"war",     type:"FILM",  year:"1993",rating:"9.0",title:"Schindler's List",           desc:"Oskar Schindler — a war profiteer who saved over 1,000 Jewish lives. Spielberg's devastating, irreplaceable masterpiece.",ac:"#0e0e0e"},
+  {id:28, cat:"war",     type:"FILM",  year:"2014",rating:"7.3",title:"American Sniper",            desc:"Chris Kyle — the most lethal sniper in US history — four tours in Iraq, 160 confirmed kills, and a war he could never leave.",ac:"#201408"},
+  {id:29, cat:"war",     type:"MINI",  year:"2001",rating:"9.4",title:"Band of Brothers",           desc:"The true story of Easy Company from D-Day to the Eagle's Nest. One of the greatest war epics ever committed to screen.",ac:"#101408"},
+  {id:30, cat:"war",     type:"FILM",  year:"2017",rating:"7.9",title:"Dunkirk",                    desc:"300,000 Allied soldiers stranded on a beach, the enemy closing in. Nolan rebuilds the most desperate rescue mission in history.",ac:"#0c1420"},
+  {id:62, cat:"war",     type:"MINI",  year:"2010",rating:"9.2",title:"The Pacific",                desc:"The brutal, largely forgotten war in the Pacific — told through three Marines' lives from Guadalcanal to Okinawa.",ac:"#101820"},
+  {id:63, cat:"war",     type:"FILM",  year:"1987",rating:"8.5",title:"Full Metal Jacket",          desc:"Stanley Kubrick's searing, two-act Vietnam War portrait — boot camp brutality giving way to the chaos of Hue City in 1968.",ac:"#141010"},
+  {id:64, cat:"war",     type:"FILM",  year:"2001",rating:"7.8",title:"Black Hawk Down",            desc:"The true story of 18 US soldiers killed in Mogadishu, Somalia in 1993 — a battle that lasted 18 hours and changed American foreign policy.",ac:"#181410"},
+  {id:65, cat:"war",     type:"FILM",  year:"1998",rating:"8.6",title:"Saving Private Ryan",        desc:"Spielberg reconstructs D-Day with terrifying realism, then sends a squad across France to find one surviving brother.",ac:"#101210"},
+
+  // ── ROYALS ──
+  {id:31, cat:"royals",  type:"SERIES",year:"2016",rating:"8.7",title:"The Crown",                  desc:"Queen Elizabeth II across seven decades — wars, scandals, divorces, and the crushing weight of a crown.",ac:"#081420"},
+  {id:32, cat:"royals",  type:"FILM",  year:"2023",rating:"6.4",title:"Napoleon",                   desc:"Ridley Scott's grand portrait of Bonaparte — from the shadow of the guillotine to Waterloo, with Joaquin Phoenix.",ac:"#200808"},
+  {id:33, cat:"royals",  type:"FILM",  year:"2006",rating:"7.1",title:"Marie Antoinette",           desc:"Sofia Coppola treats the doomed queen as a teenager trapped in gilded captivity — sun-drenched and surprisingly sympathetic.",ac:"#381018"},
+  {id:34, cat:"royals",  type:"SERIES",year:"2020",rating:"8.1",title:"The Great",                  desc:"Catherine the Great seizes power from her buffoonish husband — darkly funny, sharp, and full of real historical venom.",ac:"#281408"},
+  {id:35, cat:"royals",  type:"MINI",  year:"2019",rating:"8.2",title:"Catherine the Great",        desc:"Helen Mirren as the formidable Russian empress in her final years — love affairs, political ruthlessness, iron-willed authority.",ac:"#101828"},
+  {id:36, cat:"royals",  type:"FILM",  year:"2010",rating:"8.0",title:"The King's Speech",          desc:"King George VI's struggle to overcome a crippling stammer before addressing the nation in the darkest hour of WWII.",ac:"#081818"},
+  {id:66, cat:"royals",  type:"FILM",  year:"2006",rating:"7.6",title:"The Queen",                  desc:"Helen Mirren's Oscar-winning portrayal of Elizabeth II in the days after Diana's death — and the clash between tradition and the modern world.",ac:"#0c1820"},
+  {id:67, cat:"royals",  type:"FILM",  year:"2021",rating:"6.9",title:"Spencer",                    desc:"Kristen Stewart inhabits Princess Diana during one agonizing Christmas at Sandringham — a woman slowly being erased.",ac:"#181018"},
+  {id:68, cat:"royals",  type:"SERIES",year:"2022",rating:"7.7",title:"The Empress",                desc:"The story of the young Sisi — Elisabeth of Austria — thrown into the glamour and suffocation of the Habsburg court.",ac:"#281028"},
+  {id:69, cat:"royals",  type:"FILM",  year:"1998",rating:"7.8",title:"Elizabeth",                  desc:"Cate Blanchett's electrifying debut as the young Elizabeth I — navigating plots, marriage pressure, and the price of absolute power.",ac:"#281810"},
+
+  // ── SPORTS ──
+  {id:37, cat:"sports",  type:"FILM",  year:"2019",rating:"8.1",title:"Ford v Ferrari",             desc:"Carroll Shelby and Ken Miles build a car to beat Ferrari at Le Mans 1966. The greatest racing film ever made.",ac:"#280808"},
+  {id:38, cat:"sports",  type:"FILM",  year:"2011",rating:"7.6",title:"Moneyball",                  desc:"Billy Beane revolutionized baseball by using statistics over gut — and changed the way every sport on earth would be managed.",ac:"#082018"},
+  {id:39, cat:"sports",  type:"FILM",  year:"2023",rating:"7.5",title:"The Iron Claw",              desc:"The Von Erich wrestling dynasty — brothers chasing glory under their father's shadow, where every triumph brings tragedy.",ac:"#181018"},
+  {id:40, cat:"sports",  type:"FILM",  year:"2005",rating:"7.8",title:"The World's Fastest Indian",  desc:"Burt Munro spent decades rebuilding a 1920 Indian motorcycle in his shed — then broke the land speed record at age 68.",ac:"#201408"},
+  {id:41, cat:"sports",  type:"FILM",  year:"2013",rating:"8.1",title:"Rush",                       desc:"The epic rivalry between James Hunt and Niki Lauda in the 1976 Formula One season — speed, danger and two opposite men.",ac:"#380c08"},
+  {id:70, cat:"sports",  type:"FILM",  year:"2023",rating:"8.3",title:"AIR",                        desc:"The true story of Nike's desperate gamble to sign an unknown rookie named Michael Jordan — a bet that changed sports marketing forever.",ac:"#101010"},
+  {id:71, cat:"sports",  year:"2021",  type:"SERIES",rating:"8.2",title:"The Last Dance",           desc:"The definitive inside story of Michael Jordan and the 1997-98 Chicago Bulls — sports, ego, dynasty, and a coach who held it all together.",ac:"#0a0a14"},
+  {id:72, cat:"sports",  type:"FILM",  year:"2022",rating:"7.7",title:"Hustle",                     desc:"Based partly on real scouts' lives — an NBA scout discovers a Spanish street player and bets his career to bring him to the league.",ac:"#0c1820"},
+  {id:73, cat:"sports",  type:"FILM",  year:"2009",rating:"7.6",title:"The Blind Side",             desc:"The real story of Michael Oher — a homeless teenager taken in by a Tennessee family who becomes an NFL star.",ac:"#100c08"},
+  {id:74, cat:"sports",  type:"FILM",  year:"1995",rating:"8.1",title:"Braveheart",                 desc:"William Wallace — the Scottish rebel who united clans against English rule and became one of history's great freedom fighters.",ac:"#101808"},
+
+  // ── POLITICS ──
+  {id:75, cat:"politics",type:"FILM",  year:"2012",rating:"8.5",title:"Lincoln",                    desc:"Daniel Day-Lewis inhabits Abraham Lincoln during the final months of the Civil War — fighting Congress for the 13th Amendment.",ac:"#101018"},
+  {id:76, cat:"politics",type:"FILM",  year:"2008",rating:"7.4",title:"Frost/Nixon",                desc:"In 1977, TV host David Frost secured the only interview Nixon ever gave after his resignation — and it became a battle of wills.",ac:"#181010"},
+  {id:77, cat:"politics",type:"SERIES",year:"2018",rating:"8.3",title:"The Crown (S3-S4)",          desc:"The Thatcher years, Charles and Diana's disintegrating marriage, and the transformation of Britain — monarchy meets modernity.",ac:"#101428"},
+  {id:78, cat:"politics",type:"FILM",  year:"2019",rating:"8.0",title:"The Two Popes",              desc:"Pope Benedict and the future Pope Francis in an extraordinary series of conversations about faith, guilt, and the future of the Church.",ac:"#181410"},
+  {id:79, cat:"politics",type:"SERIES",year:"2015",rating:"8.8",title:"The People v. O.J. Simpson", desc:"Ryan Murphy's electrifying retelling of the trial of the century — how race, celebrity, and media turned justice into spectacle.",ac:"#100810"},
+  {id:80, cat:"politics",type:"FILM",  year:"2018",rating:"7.7",title:"Vice",                       desc:"Christian Bale becomes Dick Cheney — the most powerful Vice President in US history, and the man who quietly rewrote the rules of government.",ac:"#0a0c14"},
+  {id:81, cat:"politics",type:"FILM",  year:"1976",rating:"8.0",title:"All the President's Men",   desc:"Woodward and Bernstein unravel Watergate — the two Washington Post reporters who brought down a president armed only with sources and stubbornness.",ac:"#0c1010"},
+  {id:82, cat:"politics",type:"SERIES",year:"2021",rating:"7.9",title:"Impeachment: American Crime Story",desc:"Monica Lewinsky, Linda Tripp, Paula Jones — Ryan Murphy's retelling of the Clinton impeachment from the women at its center.",ac:"#180c1a"},
+  {id:83, cat:"politics",type:"FILM",  year:"2017",rating:"7.9",title:"The Post",                   desc:"Katharine Graham and Ben Bradlee race to publish the Pentagon Papers against the government and their own fears — Streep and Hanks.",ac:"#0c1018"},
+  {id:84, cat:"politics",type:"FILM",  year:"2013",rating:"7.5",title:"Mandela: Long Walk to Freedom",desc:"Nelson Mandela's extraordinary arc from young lawyer to prisoner to the president who dismantled apartheid and forgave his jailers.",ac:"#1a1008"},
+  {id:85, cat:"politics",type:"FILM",  year:"2014",rating:"7.3",title:"Selma",                      desc:"Martin Luther King Jr.'s campaign to secure voting rights for Black Americans in 1965 — the march from Selma to Montgomery that changed America.",ac:"#0c1008"},
+];
+
+const MOVIES_INDEX = MOVIES.map(m=>`${m.id}|${m.title}|${m.year}|${m.cat}|${m.type}|${m.rating}|${m.desc}`).join('\n');
+
+const CATS=[
+  {id:"all",label:"All",icon:"★"},{id:"shocking",label:"Shocking",icon:"⚡"},
+  {id:"music",label:"Music",icon:"♪"},{id:"science",label:"Science",icon:"◎"},
+  {id:"crime",label:"Crime",icon:"◆"},{id:"war",label:"War",icon:"✦"},
+  {id:"royals",label:"Royals",icon:"♛"},{id:"sports",label:"Sports",icon:"◉"},
+  {id:"politics",label:"Politics",icon:"⚖"},
+];
+const LABELS={
+  all:["Complete","Collection"],shocking:["Too Strange","to be Fiction"],
+  music:["Icons of","Sound & Stage"],science:["Minds That Changed","Everything"],
+  crime:["Power, Blood","& Consequence"],war:["Fire, Duty","& Survival"],
+  royals:["Crowns &","Fallen Empires"],sports:["Blood, Speed","& Glory"],
+  politics:["Power, Truth","& Consequence"],
+};
+const typeCol=t=>t==="FILM"?"#d4a017":t==="SERIES"?"#5bc4d4":"#d47a9a";
+let active="all";
+
+// ── TABS ──────────────────────────────────────────────────────────────────
+const tabsEl=document.getElementById('tabs');
+CATS.forEach(c=>{
+  const b=document.createElement('button');
+  b.className='tab'+(c.id==='all'?' active':'');
+  b.dataset.cat=c.id;b.textContent=`${c.icon} ${c.label}`;
+  b.onclick=()=>{
+    active=c.id;
+    document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.cat===c.id));
+    clearMood();clearSearch();render();
+  };
+  tabsEl.appendChild(b);
+  cursorHover([b]);
+});
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function renderList(list){
+  const grid=document.getElementById('grid');
+  grid.innerHTML='';
+  list.forEach((m,i)=>{
+    const card=mkCard(m);
+    card.style.animation=`cardIn .4s ${i*.025}s both`;
+    grid.appendChild(card);
+    cursorHover([card]);
+    loadCardPoster(m,card);
+  });
+}
+
+function render(){
+  const list=active==='all'?MOVIES:MOVIES.filter(m=>m.cat===active);
+  const idx=CATS.findIndex(c=>c.id===active);
+  const[l1,l2]=LABELS[active];
+  document.getElementById('secIdx').textContent=String(idx).padStart(2,'0');
+  document.getElementById('secM').textContent=l1;
+  document.getElementById('secI').textContent=l2;
+  document.getElementById('secCount').innerHTML=list.length+'&nbsp;Titles';
+  document.getElementById('navCount').textContent=list.length+' titles';
+  renderList(list);
+}
+
+// ── CARD ──────────────────────────────────────────────────────────────────
+function mkCard(m){
+  const card=document.createElement('div');card.className='card';
+  const fb=document.createElement('div');fb.className='card-fb';
+  fb.style.background=`linear-gradient(145deg,${m.ac} 0%,#0a0a0b 100%)`;
+  fb.innerHTML=`<span class="card-fb-letter">${m.title[0]}</span><span class="card-fb-name">${m.title}</span>`;
+  card.appendChild(fb);
+  const badge=document.createElement('div');badge.className='card-badge';badge.style.color=typeCol(m.type);badge.style.borderColor=typeCol(m.type)+'55';badge.textContent=m.type;card.appendChild(badge);
+  const rat=document.createElement('div');rat.className='card-rating';rat.textContent=`★ ${m.rating}`;card.appendChild(rat);
+  const strip=document.createElement('div');strip.className='card-strip';strip.innerHTML=`<div class="card-strip-title">${m.title}</div><div class="card-strip-year">${m.year}</div>`;card.appendChild(strip);
+  const hov=document.createElement('div');hov.className='card-hover';hov.innerHTML=`<div class="card-htitle">${m.title}</div><div class="card-hyear">${m.year}</div><div class="card-hdesc">${m.desc}</div><span class="card-hcta">View Details →</span>`;card.appendChild(hov);
+  if(true){const aib=document.createElement('div');aib.className='card-ai-badge';aib.textContent='⚡ AI';card.appendChild(aib);}
+  card.onclick=()=>openModal(m);
+  return card;
+}
+
+async function loadCardPoster(m,card){
+  const url=await fetchPoster(m);if(!url)return;
+  const img=document.createElement('img');img.className='card-img';img.alt=m.title;
+  img.onload=()=>{
+    const fb=card.querySelector('.card-fb');
+    if(fb){fb.classList.add('hidden');setTimeout(()=>fb.remove(),500);}
+    img.classList.add('loaded');
+    card.insertBefore(img,card.firstChild);
+  };
+  img.src=url;
+}
+
+// ── AI SEARCH ────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+
+async function doSearch(){
+  const q=document.getElementById('searchInput').value.trim();
+  if(!q)return;
+  if(!GROQ_KEY){
+    // Fallback: simple title filter
+    const lower=q.toLowerCase();
+    const results=MOVIES.filter(m=>m.title.toLowerCase().includes(lower)||m.desc.toLowerCase().includes(lower)||m.cat.includes(lower));
+    clearSearch();renderList(results);
+    document.getElementById('navCount').textContent=results.length+' results';
+    return;
+  }
+  document.getElementById('searchBtn').textContent='Searching…';
+  clearMood();
+  try{
+    const prompt=`You are helping search a movie database. The user searched: "${q}"
+
+Here is the full catalog (id|title|year|cat|type|rating|desc):
+${MOVIES_INDEX}
+
+Return a JSON object with:
+- "summary": A 1-2 sentence response explaining what you found and why (vivid, cinephile tone, no markdown)
+- "ids": array of matching movie IDs (numbers) ordered by relevance, max 12
+
+Only return valid JSON, nothing else.`;
+
+    const raw=await groq([{role:'user',content:prompt}],300,0.4);
+    let data;
+    try{data=JSON.parse(raw.replace(/```json|```/g,'').trim());}
+    catch{data={summary:'Found some matches.',ids:MOVIES.filter(m=>m.title.toLowerCase().includes(q.toLowerCase())).map(m=>m.id)};}
+
+    const matched=data.ids.map(id=>MOVIES.find(m=>m.id===id)).filter(Boolean);
+    document.getElementById('aiSearchText').textContent=data.summary||'';
+    const matchDiv=document.getElementById('asrMatches');
+    matchDiv.innerHTML='';
+    matched.slice(0,6).forEach(m=>{
+      const btn=document.createElement('button');btn.className='asr-match';btn.textContent=m.title;
+      btn.onclick=()=>openModal(m);matchDiv.appendChild(btn);cursorHover([btn]);
+    });
+    document.getElementById('aiSearchResult').classList.add('show');
+    renderList(matched);
+    document.getElementById('navCount').textContent=matched.length+' results';
+    document.getElementById('secM').textContent='Search';
+    document.getElementById('secI').textContent=`"${q}"`;
+    document.getElementById('secCount').innerHTML=matched.length+'&nbsp;Titles';
+  }catch(e){
+    document.getElementById('aiSearchText').textContent='Search error: '+e.message;
+    document.getElementById('aiSearchResult').classList.add('show');
+  }
+  document.getElementById('searchBtn').textContent='Search';
+}
+
+function clearSearch(){
+  document.getElementById('aiSearchResult').classList.remove('show');
+  document.getElementById('searchInput').value='';
+}
+
+// ── MOOD RECOMMENDATIONS ──────────────────────────────────────────────────
+let activeMoodBtn=null;
+async function doMood(btn,mood){
+  if(activeMoodBtn===btn){clearMood();render();return;}
+  if(activeMoodBtn)activeMoodBtn.classList.remove('active');
+  btn.classList.add('active');activeMoodBtn=btn;
+  clearSearch();
+  btn.textContent='⏳ '+btn.textContent.replace(/^⏳\s*/,'');
+  try{
+    const prompt=`You are a film recommendation engine. The user wants: "${mood}"
+
+Catalog (id|title|year|cat|type|rating|desc):
+${MOVIES_INDEX}
+
+Return JSON only:
+- "label": short catchy label for this mood selection (max 5 words)
+- "ids": array of 6-10 movie IDs ordered by fit
+
+Only valid JSON, no markdown.`;
+
+    const raw=await groq([{role:'user',content:prompt}],200,0.5);
+    let data;
+    try{data=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch{data={label:mood,ids:MOVIES.map(m=>m.id).slice(0,8)};}
+
+    const matched=data.ids.map(id=>MOVIES.find(m=>m.id===id)).filter(Boolean);
+    const ml=document.getElementById('moodLabel');
+    ml.textContent=`⚡ ${data.label||mood} — ${matched.length} titles`;
+    ml.classList.add('show');
+    document.getElementById('secM').textContent='Mood Pick';
+    document.getElementById('secI').textContent=data.label||mood;
+    document.getElementById('secCount').innerHTML=matched.length+'&nbsp;Titles';
+    document.getElementById('navCount').textContent=matched.length+' titles';
+    document.getElementById('secIdx').textContent='✦';
+    renderList(matched);
+  }catch(e){console.error(e);}
+  btn.textContent=btn.textContent.replace(/^⏳\s*/,'');
+}
+
+function clearMood(){
+  if(activeMoodBtn)activeMoodBtn.classList.remove('active');
+  activeMoodBtn=null;
+  document.getElementById('moodLabel').classList.remove('show');
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────
+const modalBg=document.getElementById('modal-bg');
+let currentMovie=null;
+
+async function openModal(m){
+  currentMovie=m;
+  // Reset chat + deeper
+  document.getElementById('chatMsgs').innerHTML='';
+  document.getElementById('chatInput').value='';
+  document.getElementById('chatSend').disabled=false;
+  document.getElementById('mAiDesc').classList.remove('show');
+  document.getElementById('mAiDescText').textContent='';
+  document.getElementById('btnDeeper').classList.remove('loading');
+
+  // Poster
+  const wrap=document.getElementById('mImgWrap');wrap.innerHTML='';
+  const fb=document.createElement('div');fb.className='modal-poster-fb';
+  fb.style.background=`linear-gradient(145deg,${m.ac} 0%,#0a0a0b 100%)`;fb.textContent=m.title[0];
+  wrap.appendChild(fb);
+  fetchPoster(m).then(url=>{
+    if(!url)return;
+    const img=document.createElement('img');img.className='modal-poster';img.alt=m.title;
+    img.onload=()=>fb.replaceWith(img);img.src=url;
+  });
+
+  // Info
+  document.getElementById('mType').textContent=m.type;
+  document.getElementById('mCat').textContent=m.cat.toUpperCase();
+  document.getElementById('mCat').style.color=typeCol(m.type);
+  document.getElementById('mScore').textContent=`★ ${m.rating}`;
+  document.getElementById('mTitle').textContent=m.title;
+  document.getElementById('mYear').textContent=m.year;
+  document.getElementById('mDesc').textContent=m.desc;
+
+  // Quick prompts
+  const qps=[
+    'How historically accurate is this?',
+    'What happened to the real person?',
+    'Why should I watch this?',
+    'What are the best scenes?',
+  ];
+  const qpDiv=document.getElementById('quickPrompts');qpDiv.innerHTML='';
+  qps.forEach(q=>{
+    const b=document.createElement('button');b.className='qp';b.textContent=q;
+    b.onclick=()=>{document.getElementById('chatInput').value=q;sendChat();};
+    qpDiv.appendChild(b);cursorHover([b]);
+  });
+
+  // Similar titles
+  loadSimilar(m);
+
+  modalBg.classList.add('open');document.body.style.overflow='hidden';
+}
+
+function closeModal(){modalBg.classList.remove('open');document.body.style.overflow='';currentMovie=null;}
+document.getElementById('modal-close').onclick=closeModal;
+modalBg.onclick=e=>{if(e.target===modalBg)closeModal();};
+window.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}});
+
+// ── AI DEEP DIVE ──────────────────────────────────────────────────────────
+async function loadDeeper(){
+  if(!currentMovie)return;
+  if(!GROQ_KEY){addChatMsg('ai','Enter your Groq API key to use AI features.');return;}
+  const btn=document.getElementById('btnDeeper');
+  btn.classList.add('loading');btn.disabled=true;
+  try{
+    const m=currentMovie;
+    const text=await groq([{role:'system',content:`You are a passionate film critic and historian. Write a deep-dive paragraph (4-6 sentences) about "${m.title}" (${m.year}). Cover: the real story behind it, what makes it exceptional, one surprising historical fact, and why it lingers. No markdown, pure prose, vivid and literary.`}],350,0.85);
+    document.getElementById('mAiDescText').textContent=text;
+    document.getElementById('mAiDesc').classList.add('show');
+    btn.style.display='none';
+  }catch(e){
+    document.getElementById('mAiDescText').textContent='Error: '+e.message;
+    document.getElementById('mAiDesc').classList.add('show');
+  }
+  btn.classList.remove('loading');btn.disabled=false;
+}
+
+// ── SIMILAR TITLES ────────────────────────────────────────────────────────
+async function loadSimilar(m){
+  const sc=document.getElementById('similarCards');
+  sc.innerHTML='<span class="similar-loading">Finding similar titles…</span>';
+  let ids;
+  if(GROQ_KEY){
+    try{
+      const raw=await groq([{role:'user',content:`Given this film: "${m.title}" (${m.year}, cat:${m.cat}, desc:${m.desc})
+
+From this catalog (id|title|year|cat|type|rating|desc):
+${MOVIES_INDEX}
+
+Return JSON only: {"ids":[array of 5 most similar movie IDs, excluding id ${m.id}]}
+No markdown.`}],120,0.4);
+      const d=JSON.parse(raw.replace(/```json|```/g,'').trim());
+      ids=d.ids;
+    }catch{ids=fallbackSimilar(m);}
+  }else{ids=fallbackSimilar(m);}
+
+  const similar=ids.map(id=>MOVIES.find(x=>x.id===id)).filter(Boolean).slice(0,5);
+  sc.innerHTML='';
+  similar.forEach(s=>{
+    const c=document.createElement('div');c.className='sim-card';
+    c.innerHTML=`<div class="sim-fb" style="background:linear-gradient(145deg,${s.ac},#0a0a0b)">${s.title[0]}</div><div class="sim-title">${s.title}</div>`;
+    c.onclick=()=>openModal(s);sc.appendChild(c);cursorHover([c]);
+    // Load poster
+    fetchPoster(s).then(url=>{
+      if(!url)return;
+      const img=document.createElement('img');img.className='sim-img';img.alt=s.title;
+      img.onload=()=>{c.querySelector('.sim-fb').replaceWith(img);};img.src=url;
+    });
+  });
+}
+
+function fallbackSimilar(m){
+  return MOVIES.filter(x=>x.id!==m.id&&x.cat===m.cat).slice(0,5).map(x=>x.id);
+}
+
+// ── AI CHAT ───────────────────────────────────────────────────────────────
+async function sendChat(){
+  if(!currentMovie)return;
+  const inp=document.getElementById('chatInput');
+  const q=inp.value.trim();if(!q)return;
+  if(!GROQ_KEY){addChatMsg('ai','⚠ Enter your Groq API key in the banner above.');return;}
+  inp.value='';
+  addChatMsg('user',q);
+  const load=addChatMsg('ai','',true);
+  document.getElementById('chatSend').disabled=true;
+  try{
+    const m=currentMovie;
+    const sys=`You are an expert film critic and historian. Context: "${m.title}" (${m.year}, ${m.type}, ${m.cat}, ★${m.rating}). About it: ${m.desc}. Answer questions about the film, historical accuracy, the real people involved, themes, and context. Be concise, vivid, and insightful. 3-4 sentences max. No markdown.`;
+    const answer=await groq([{role:'system',content:sys},{role:'user',content:q}],300,0.75);
+    load.remove();addChatMsg('ai',answer);
+  }catch(e){load.remove();addChatMsg('ai','Error: '+e.message);}
+  finally{document.getElementById('chatSend').disabled=false;}
+}
+
+function addChatMsg(role,text,loading=false){
+  const box=document.getElementById('chatMsgs');
+  const el=document.createElement('div');
+  el.className='chat-msg '+(loading?'loading':role);
+  if(!loading)el.textContent=text;
+  box.appendChild(el);box.scrollTop=box.scrollHeight;
+  return el;
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+render();
+// Keys are always hardcoded — always show connected
+document.getElementById('bannerStatus').textContent='✓ Keys loaded';
+document.getElementById('bannerStatus').className='banner-status ok';
+</script>
+</body>
+</html>
