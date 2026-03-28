@@ -61,7 +61,7 @@ Drag and drop the HTML file into any browser — it works instantly.
 
 ## Author
 
-Yasmine Daou — https://github.com/YASMENMAD
+Yasmine Daoudi — https://github.com/YASMENMAD
 
 ---
 
