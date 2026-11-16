@@ -347,11 +347,17 @@ function cursorHover(els){els.forEach(el=>{
 });}
 document.querySelectorAll('button,.tab').forEach(el=>cursorHover([el]));
 
-// ── API KEYS (HARDCODED) ──────────────────────────────────────────────────
-let TMDB_KEY='f45fbdd7b24f1341eb132d1d53f5bf98';
-let GROQ_KEY='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';
+// ── API KEYS (SECURE CONFIG) ──────────────────────────────────────────────
+let TMDB_KEY = localStorage.getItem('tmdb_key') || 'f45fbdd7b24f1341eb132d1d53f5bf98';
+let GROQ_KEY = localStorage.getItem('groq_key') || window.GROQ_KEY || '';
 
-function saveKeys(){/* keys are hardcoded */}
+function saveKeys() {
+  const input = prompt('Enter your Groq API Key (from https://console.groq.com):', GROQ_KEY);
+  if (input) {
+    GROQ_KEY = input.trim();
+    localStorage.setItem('groq_key', GROQ_KEY);
+  }
+}
 
 // Show mood bar always (keys are always set)
 function updateMoodBar(){
@@ -380,7 +386,8 @@ async function fetchPoster(m){
 
 // ── GROQ ──────────────────────────────────────────────────────────────────
 async function groq(messages,max_tokens=400,temperature=0.75){
-  if(!GROQ_KEY)throw new Error('No Groq API key');
+  if(!GROQ_KEY){ saveKeys(); }
+  if(!GROQ_KEY)throw new Error('Please set a Groq API key (console.groq.com) to use AI features.');
   const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_KEY}`},
