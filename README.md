@@ -49,4 +49,4 @@ REAL-STORIES/
 ## ‍ Author
 
 **Yasmine Daoudi** — [GitHub Profile](https://github.com/yasmenmad)  
-LinkedIn: [linkedin.com/in/yasmine-daoudi-473260340](https://www.linkedin.com/in/yasmine-daoudi-473260340)
+LinkedIn: [linkedin.com/in/yasmine-daoudi-eng](https://www.linkedin.com/in/yasmine-daoudi-eng)
