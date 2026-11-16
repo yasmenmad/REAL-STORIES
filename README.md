@@ -1,4 +1,4 @@
-﻿# 🎬 Real Stories — Curated Historical Cinema & AI Intelligence
+﻿#  Real Stories — Curated Historical Cinema & AI Intelligence
 
 [![HTML5](https://img.shields.io/badge/Frontend-HTML5%20%2F%20CSS3-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![JavaScript](https://img.shields.io/badge/Script-Vanilla%20JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -10,7 +10,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - **Curated Catalog:** 85+ historic cinematic works classified into 8 thematic categories (*Shocking, Music, Science, Crime, War, Royals, Sports, Politics*).
 - **Live TMDB Poster Retrieval:** Automatically queries The Movie Database (TMDB) API dynamically to hydrate covers and posters with local in-memory caching.
@@ -21,7 +21,7 @@
 
 ---
 
-## 🛠️ Quickstart
+## ️ Quickstart
 
 Open `index.html` directly in any modern browser, or serve locally with any static web server:
 
@@ -35,7 +35,7 @@ When invoking AI features for the first time, you will be prompted to enter your
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 REAL-STORIES/
@@ -46,7 +46,7 @@ REAL-STORIES/
 
 ---
 
-## 👩‍💻 Author
+## ‍ Author
 
 **Yasmine Daoudi** — [GitHub Profile](https://github.com/yasmenmad)  
 LinkedIn: [linkedin.com/in/yasmine-daoudi-473260340](https://www.linkedin.com/in/yasmine-daoudi-473260340)
