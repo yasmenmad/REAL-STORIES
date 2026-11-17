@@ -27,14 +27,14 @@
   <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- API BANNER -->
+<!-- ARCHIVAL TELEMETRY BAR -->
 <div id="api-banner">
-  <strong>⚡ Live APIs</strong>
-  <span style="font-size:11px;color:rgba(255,255,255,.45)">TMDB Posters</span>
-  <span id="bannerStatus" class="banner-status ok">✓ Connected</span>
+  <strong>HISTORICAL ARCHIVE TELEMETRY</strong>
+  <span style="font-size:11px;color:rgba(255,255,255,.45)">TMDB Live Posters</span>
+  <span id="bannerStatus" class="banner-status ok">Connected</span>
   <span style="font-size:11px;color:rgba(255,255,255,.45)">·</span>
-  <span style="font-size:11px;color:rgba(255,255,255,.45)">Groq AI</span>
-  <span class="banner-status ok">✓ Active</span>
+  <span style="font-size:11px;color:rgba(255,255,255,.45)">Neural Semantic Query</span>
+  <span class="banner-status ok">Active</span>
   <span id="tmdbIn" style="display:none"></span>
   <span id="groqIn" style="display:none"></span>
 </div>
@@ -42,10 +42,10 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-in">
-    <div class="nav-brand">True Stories</div>
+    <div class="nav-brand"><span style="color:#d4af37">THEY REALLY LIVED THIS</span> · HISTORICAL ARCHIVE</div>
     <div class="tabs-scroll" id="tabs"></div>
     <div class="nav-search">
-      <input id="searchInput" placeholder="🔍 AI search… e.g. fraud, survival, queen"/>
+      <input id="searchInput" placeholder="Semantic search… e.g. survival, space race, queen, cold war"/>
       <button id="searchBtn" onclick="doSearch()">Search</button>
     </div>
     <div class="nav-count" id="navCount"></div>
@@ -54,21 +54,21 @@
 
 <!-- MOOD BAR -->
 <div id="moodBar" class="open">
-  <span class="mood-label">I'm in the mood for…</span>
-  <button class="mood-btn" onclick="doMood(this,'something shocking and unbelievable')">😱 Unbelievable</button>
-  <button class="mood-btn" onclick="doMood(this,'a powerful music biopic')">🎵 Music Legends</button>
-  <button class="mood-btn" onclick="doMood(this,'a gripping crime story')">🔪 Dark Crime</button>
-  <button class="mood-btn" onclick="doMood(this,'an inspiring science or genius story')">🧠 Genius Minds</button>
-  <button class="mood-btn" onclick="doMood(this,'an epic war story')">⚔ War & Survival</button>
-  <button class="mood-btn" onclick="doMood(this,'royal drama and palace intrigue')">👑 Royal Drama</button>
-  <button class="mood-btn" onclick="doMood(this,'political power struggles and scandals')">⚖ Power & Politics</button>
-  <button class="mood-btn" onclick="doMood(this,'the highest rated titles over 9')">⭐ Highest Rated</button>
-  <button class="mood-btn" onclick="doMood(this,'something feel-good and triumphant')">🏆 Triumphant</button>
+  <span class="mood-label">Thematic Archives:</span>
+  <button class="mood-btn" onclick="doMood(this,'something shocking and unbelievable')">Unbelievable Accounts</button>
+  <button class="mood-btn" onclick="doMood(this,'a powerful music biopic')">Music &amp; Cultural Legends</button>
+  <button class="mood-btn" onclick="doMood(this,'a gripping crime story')">Dark Crime &amp; Heists</button>
+  <button class="mood-btn" onclick="doMood(this,'an inspiring science or genius story')">Scientific Genius</button>
+  <button class="mood-btn" onclick="doMood(this,'an epic war story')">War &amp; Epic Survival</button>
+  <button class="mood-btn" onclick="doMood(this,'royal drama and palace intrigue')">Royal Chronicles</button>
+  <button class="mood-btn" onclick="doMood(this,'political power struggles and scandals')">Power &amp; Politics</button>
+  <button class="mood-btn" onclick="doMood(this,'the highest rated titles over 9')">Highest Acclaimed</button>
+  <button class="mood-btn" onclick="doMood(this,'something feel-good and triumphant')">Triumphant Human Spirit</button>
 </div>
 
 <!-- AI SEARCH RESULT -->
 <div id="aiSearchResult">
-  <div class="asr-label">⚡ Groq AI Search</div>
+  <div class="asr-label">Neural Semantic Search Results</div>
   <div id="aiSearchText"></div>
   <div class="asr-matches" id="asrMatches"></div>
 </div>
