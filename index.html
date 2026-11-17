@@ -1,138 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>They Really Lived This</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Archivo+Black&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real Stories — Curated Historical Cinema Explorer &amp; True-Story Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-top-line"></div>
-  <p class="hero-label">Real Lives &nbsp;·&nbsp; Real Stories &nbsp;·&nbsp; Real Legends</p>
-  <h1><span class="l1">They Really</span><span class="l2">Lived This</span></h1>
-  <p class="hero-p">The most extraordinary films and series ever made — all based on real people who changed history, broke rules, and refused to be forgotten.</p>
-  <div class="hero-ornament"><div class="orn-line l"></div><div class="orn-dot"></div><div class="orn-line r"></div></div>
-  <div class="stats">
-    <div class="stat"><div class="stat-n">85</div><div class="stat-l">Titles</div></div>
-    <div class="stat"><div class="stat-n">8</div><div class="stat-l">Categories</div></div>
-    <div class="stat"><div class="stat-n">80+</div><div class="stat-l">Years of Cinema</div></div>
-    <div class="stat"><div class="stat-n">70+</div><div class="stat-l">Oscar Wins</div></div>
-  </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
-</section>
-
-<!-- ARCHIVAL TELEMETRY BAR -->
-<div id="api-banner">
-  <strong>HISTORICAL ARCHIVE TELEMETRY</strong>
-  <span style="font-size:11px;color:rgba(255,255,255,.45)">TMDB Live Posters</span>
-  <span id="bannerStatus" class="banner-status ok">Connected</span>
-  <span style="font-size:11px;color:rgba(255,255,255,.45)">·</span>
-  <span style="font-size:11px;color:rgba(255,255,255,.45)">Neural Semantic Query</span>
-  <span class="banner-status ok">Active</span>
-  <span id="tmdbIn" style="display:none"></span>
-  <span id="groqIn" style="display:none"></span>
-</div>
-
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-in">
-    <div class="nav-brand"><span style="color:#d4af37">THEY REALLY LIVED THIS</span> · HISTORICAL ARCHIVE</div>
-    <div class="tabs-scroll" id="tabs"></div>
-    <div class="nav-search">
-      <input id="searchInput" placeholder="Semantic search… e.g. survival, space race, queen, cold war"/>
-      <button id="searchBtn" onclick="doSearch()">Search</button>
+  <!-- TOPBAR -->
+  <nav id="nav">
+    <div class="nav-in">
+      <a href="index.html" class="nav-brand-wrap">
+        <img src="assets/logo.svg" alt="Real Stories" class="nav-logo"/>
+      </a>
+      <div class="tabs-scroll" id="tabs"></div>
+      <div class="nav-search">
+        <input id="searchInput" placeholder="Search by title, real person, event, or war..."/>
+        <button id="searchBtn" onclick="doSearch()">Search</button>
+      </div>
+      <div class="nav-count" id="navCount">85 Titles</div>
     </div>
-    <div class="nav-count" id="navCount"></div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-label">Curated Historical Cinema Explorer &middot; True-Story Archive</div>
+    <h1><span class="l1">Real</span><span class="l2">Stories</span></h1>
+    <p class="hero-p">"Truth is stranger &mdash; and far more magnificent &mdash; than any fiction." Documenting the most extraordinary lives, political revolutions, wartime rescues, and true-story masterpieces across world history.</p>
+
+    <div class="hero-ornament">
+      <div class="orn-line l"></div>
+      <div class="orn-dot"></div>
+      <div class="orn-line r"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-n">85</div><div class="stat-l">Curated Titles</div></div>
+      <div class="stat"><div class="stat-n">9</div><div class="stat-l">Archival Eras</div></div>
+      <div class="stat"><div class="stat-n">80+</div><div class="stat-l">Years Documented</div></div>
+      <div class="stat"><div class="stat-n">70+</div><div class="stat-l">Academy Awards</div></div>
+    </div>
+  </section>
+
+  <!-- TELEMETRY BANNER -->
+  <div id="api-banner">
+    <strong>HISTORICAL ARCHIVE TELEMETRY</strong>
+    <span>&bull;</span>
+    <span style="font-size:11px;color:rgba(255,255,255,.55)">TMDB Live Poster Engine:</span>
+    <span id="bannerStatus" class="banner-status ok">Connected</span>
+    <span>&bull;</span>
+    <span style="font-size:11px;color:rgba(255,255,255,.55)">Curated Corpus: 85 Masterpieces</span>
   </div>
-</nav>
 
-<!-- MOOD BAR -->
-<div id="moodBar" class="open">
-  <span class="mood-label">Thematic Archives:</span>
-  <button class="mood-btn" onclick="doMood(this,'something shocking and unbelievable')">Unbelievable Accounts</button>
-  <button class="mood-btn" onclick="doMood(this,'a powerful music biopic')">Music &amp; Cultural Legends</button>
-  <button class="mood-btn" onclick="doMood(this,'a gripping crime story')">Dark Crime &amp; Heists</button>
-  <button class="mood-btn" onclick="doMood(this,'an inspiring science or genius story')">Scientific Genius</button>
-  <button class="mood-btn" onclick="doMood(this,'an epic war story')">War &amp; Epic Survival</button>
-  <button class="mood-btn" onclick="doMood(this,'royal drama and palace intrigue')">Royal Chronicles</button>
-  <button class="mood-btn" onclick="doMood(this,'political power struggles and scandals')">Power &amp; Politics</button>
-  <button class="mood-btn" onclick="doMood(this,'the highest rated titles over 9')">Highest Acclaimed</button>
-  <button class="mood-btn" onclick="doMood(this,'something feel-good and triumphant')">Triumphant Human Spirit</button>
-</div>
-
-<!-- AI SEARCH RESULT -->
-<div id="aiSearchResult">
-  <div class="asr-label">Neural Semantic Search Results</div>
-  <div id="aiSearchText"></div>
-  <div class="asr-matches" id="asrMatches"></div>
-</div>
-
-<!-- CONTENT -->
-<div class="wrap">
-  <div class="sec-head">
-    <div class="sec-idx" id="secIdx">00</div>
-    <div><div class="sec-m" id="secM"></div><div class="sec-i" id="secI"></div></div>
-    <div class="sec-count" id="secCount"></div>
+  <!-- MOOD BAR -->
+  <div id="moodBar" class="open">
+    <span class="mood-label">Archival Themes:</span>
+    <button class="mood-btn" onclick="doMood(this,'something shocking and unbelievable')">Unbelievable Accounts</button>
+    <button class="mood-btn" onclick="doMood(this,'a powerful music biopic')">Music &amp; Cultural Legends</button>
+    <button class="mood-btn" onclick="doMood(this,'a gripping crime story')">Dark Crime &amp; Heists</button>
+    <button class="mood-btn" onclick="doMood(this,'an inspiring science or genius story')">Scientific Genius</button>
+    <button class="mood-btn" onclick="doMood(this,'an epic war story')">War &amp; Epic Survival</button>
+    <button class="mood-btn" onclick="doMood(this,'royal drama and palace intrigue')">Royal Chronicles</button>
+    <button class="mood-btn" onclick="doMood(this,'political power struggles and scandals')">Power &amp; Politics</button>
+    <button class="mood-btn" onclick="doMood(this,'the highest rated titles over 9')">Highest Acclaimed</button>
   </div>
-  <div class="mood-result-label" id="moodLabel"></div>
-  <div class="grid" id="grid"></div>
-</div>
 
-<footer><p>"Truth is stranger — and <span>far more beautiful</span> — than any fiction."</p></footer>
+  <!-- AI SEARCH RESULT BANNER -->
+  <div id="aiSearchResult">
+    <div class="asr-label">Search Filter Results</div>
+    <div id="aiSearchText"></div>
+    <div class="asr-matches" id="asrMatches"></div>
+  </div>
 
-<!-- MODAL -->
-<div id="modal-bg">
-  <div id="modal">
-    <div class="modal-top">
-      <div class="modal-poster-col" id="mImgWrap"></div>
-      <div class="modal-info">
-        <div class="modal-eye">
-          <span class="modal-type" id="mType"></span>
-          <span class="modal-cat" id="mCat"></span>
-          <div class="modal-sep"></div>
-          <span class="modal-score" id="mScore"></span>
+  <!-- MAIN CATALOG -->
+  <main class="wrap">
+    <div class="sec-head">
+      <div class="sec-idx" id="secIdx">00</div>
+      <div>
+        <div class="sec-m" id="secM">Complete</div>
+        <div class="sec-i" id="secI">Archive</div>
+      </div>
+      <div class="sec-count" id="secCount">85 Titles</div>
+    </div>
+
+    <div class="mood-result-label" id="moodLabel"></div>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>"Truth is stranger &mdash; and <span>far more magnificent</span> &mdash; than any fiction."</p>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#64748b;margin-top:10px;">
+      CURATED BY YASMINE DAOUDI &middot; TMDB REST API v3 &middot; RESEARCH ARCHIVE
+    </div>
+  </footer>
+
+  <!-- DETAIL MODAL -->
+  <div id="modal-bg" onclick="closeModalOnBg(event)">
+    <div id="modal">
+      <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+      <div class="modal-top">
+        <div class="modal-poster-col" id="mImgWrap"></div>
+        <div class="modal-info">
+          <div class="modal-eye">
+            <span class="modal-type" id="mType">FILM</span>
+            <span class="modal-cat" id="mCat">HISTORICAL</span>
+            <div class="modal-sep"></div>
+            <span class="modal-score" id="mScore">&star; 8.5</span>
+          </div>
+
+          <h2 class="modal-title" id="mTitle">Movie Title</h2>
+          <div class="modal-year-lead" id="mYear">1993</div>
+          <p class="modal-desc" id="mDesc">Description text...</p>
+
+          <div class="modal-truth-box">
+            <div class="modal-truth-label">Historical Account &amp; Real Persons Involved</div>
+            <p class="modal-truth-p" id="mTruth">Historical background details...</p>
+          </div>
         </div>
-        <div class="modal-title" id="mTitle"></div>
-        <div class="modal-year" id="mYear"></div>
-        <div class="modal-desc" id="mDesc"></div>
-        <div class="modal-ai-desc" id="mAiDesc">
-          <div class="modal-ai-desc-label">⚡ AI Deep Dive</div>
-          <div class="modal-ai-desc-text" id="mAiDescText"></div>
-        </div>
-        <button class="btn-deeper" id="btnDeeper" onclick="loadDeeper()">
-          <span class="spin"></span>
-          ⚡ AI Deep Dive
-        </button>
       </div>
     </div>
-
-    <!-- SIMILAR TITLES -->
-    <div class="modal-similar">
-      <div class="modal-similar-label">You might also like</div>
-      <div class="similar-cards" id="similarCards"><span class="similar-loading">Loading recommendations…</span></div>
-    </div>
-
-    <!-- AI CHAT -->
-    <div class="modal-chat">
-      <div class="chat-label">Ask AI about this title</div>
-      <div class="chat-msgs" id="chatMsgs"></div>
-      <div class="quick-prompts" id="quickPrompts"></div>
-      <div class="chat-input-row">
-        <input class="chat-input" id="chatInput" placeholder="Ask anything about this film or the real story…"/>
-        <button class="chat-send" id="chatSend" onclick="sendChat()">Ask →</button>
-      </div>
-    </div>
-
-    <button id="modal-close">✕</button>
   </div>
-</div>
 
-<script src="js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

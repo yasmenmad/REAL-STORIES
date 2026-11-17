@@ -1,0 +1,49 @@
+<svg width="900" height="200" viewBox="0 0 900 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="archiveBg" x1="0" y1="0" x2="900" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#07080c"/>
+      <stop offset="50%" stop-color="#0f1322"/>
+      <stop offset="100%" stop-color="#06070a"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#f5d77f"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <radialGradient id="reelGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#07080c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="900" height="200" rx="12" fill="url(#archiveBg)" stroke="#23293d" stroke-width="1.5"/>
+  <rect x="0" y="0" width="900" height="3" fill="url(#goldLine)"/>
+
+  <!-- Left Cinema Reel Icon -->
+  <g transform="translate(48, 38)">
+    <circle cx="62" cy="62" r="58" fill="url(#reelGlow)"/>
+    <circle cx="62" cy="62" r="54" stroke="#d4af37" stroke-width="2"/>
+    <circle cx="62" cy="62" r="38" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
+    <circle cx="62" cy="62" r="18" fill="#0d101a" stroke="#d4af37" stroke-width="2"/>
+    <circle cx="62" cy="62" r="6" fill="#f5d77f"/>
+    <!-- Perforations -->
+    <circle cx="62" cy="22" r="5" fill="#d4af37"/>
+    <circle cx="62" cy="102" r="5" fill="#d4af37"/>
+    <circle cx="22" cy="62" r="5" fill="#d4af37"/>
+    <circle cx="102" cy="62" r="5" fill="#d4af37"/>
+    <circle cx="34" cy="34" r="5" fill="#d4af37"/>
+    <circle cx="90" cy="90" r="5" fill="#d4af37"/>
+    <circle cx="34" cy="90" r="5" fill="#d4af37"/>
+    <circle cx="90" cy="34" r="5" fill="#d4af37"/>
+  </g>
+
+  <!-- Title & Typography -->
+  <g transform="translate(195, 48)">
+    <rect x="0" y="0" width="220" height="22" rx="4" fill="rgba(212,175,55,0.12)" stroke="rgba(212,175,55,0.3)" stroke-width="1"/>
+    <text x="12" y="15" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#f5d77f" letter-spacing="1.5">HISTORICAL CINEMA VAULT</text>
+
+    <text x="0" y="62" font-family="'Cinzel', serif" font-size="34" font-weight="900" fill="#ffffff" letter-spacing="1">Real Stories</text>
+    <text x="0" y="88" font-family="'Cormorant Garamond', serif" font-style="italic" font-size="16" fill="#94a3b8">"Truth is stranger &mdash; and far more magnificent &mdash; than any fiction."</text>
+    <text x="0" y="112" font-family="'JetBrains Mono', monospace" font-size="11" fill="#d4af37">85 Curated Titles &middot; 9 Archival Eras &middot; TMDB REST v3 Telemetry &middot; Criterion Aesthetic</text>
+  </g>
+</svg>

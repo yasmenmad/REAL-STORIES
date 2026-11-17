@@ -1,7 +1,7 @@
 ﻿<div align="center">
-  <img src="https://raw.githubusercontent.com/yasmenmad/REAL-STORIES/main/assets/logo.svg" alt="Real Stories Logo" width="340" />
+  <img src="https://raw.githubusercontent.com/yasmenmad/REAL-STORIES/main/assets/banner.svg" alt="Real Stories Historical Cinema Banner" width="100%" />
 
-  <p><strong>Curated Historical Cinema Explorer &middot; True-Story Archival Intelligence</strong></p>
+  <br/><br/>
 
   [![TMDB API](https://img.shields.io/badge/TMDB-REST_v3_API-01B4E4?style=flat-square&logo=themoviedatabase&logoColor=white)](https://www.themoviedb.org/)
   [![JavaScript](https://img.shields.io/badge/JavaScript-ES2024-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -17,7 +17,7 @@
 
 ## Overview
 
-**Real Stories** is an archival cinema discovery portal dedicated exclusively to masterworks based on real historical events, political chronicles, scientific breakthroughs, and true human accounts.
+**Real Stories** is an archival cinema discovery portal dedicated exclusively to masterworks based on real historical events, political revolutions, scientific breakthroughs, wartime rescues, and true biographical accounts.
 
 By interfacing directly with the **The Movie Database (TMDB) API**, the platform structures historical cinema across discrete historical epochs and thematic classifications &mdash; enabling cinephiles and researchers to filter world history through cinema.
 
@@ -25,7 +25,7 @@ By interfacing directly with the **The Movie Database (TMDB) API**, the platform
 
 ## Thematic Taxonomy & Archival Eras
 
-The catalog organizes cinema across structured historical themes:
+The catalog organizes 85 verified historical masterworks across structured epochs:
 
 - **Unbelievable Accounts:** Astonishing real events, survival odysseys, and verified anomalies.
 - **Music & Cultural Legends:** Transformative figures in art, literature, and twentieth-century sound.
