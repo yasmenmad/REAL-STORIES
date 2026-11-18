@@ -184,6 +184,7 @@ function renderList(list) {
       const img = document.createElement('img');
       img.className = 'card-img';
       img.alt = m.title;
+      img.referrerPolicy = 'no-referrer';
       img.loading = 'lazy';
       img.src = m.poster;
       img.onerror = () => {
@@ -265,7 +266,7 @@ function openModal(m) {
 
   const wrap = document.getElementById('mImgWrap');
   if (m.poster) {
-    wrap.innerHTML = `<img src="${m.poster}" alt="${m.title}" style="width:100%;border-radius:10px;box-shadow:0 12px 35px rgba(0,0,0,0.8);border:1px solid rgba(212,175,55,0.3)"/>`;
+    wrap.innerHTML = `<img src="${m.poster}" alt="${m.title}" referrerpolicy="no-referrer" style="width:100%;border-radius:10px;box-shadow:0 12px 35px rgba(0,0,0,0.8);border:1px solid rgba(212,175,55,0.3)"/>`;
   } else {
     wrap.innerHTML = `<div class="card-fb" style="width:240px;height:340px;border-radius:10px;background:linear-gradient(145deg, ${m.ac || '#1e293b'}, #07080c);display:flex;align-items:center;justify-content:center;color:#d4af37;font-family:'Cinzel',serif;font-size:72px;">${m.title[0]}</div>`;
   }
